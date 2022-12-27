@@ -1,7 +1,5 @@
 'use strict'
 const Logger = require('../../utils/logger')
-const hapiSequelize = require('../db/hapiSequelize')
-const hapiMongoose = require('../db/hapiMongoose')
 const hapiResponse = require('../utils/hapiResponse')
 
 async function initPlugins (server) {
@@ -72,43 +70,6 @@ async function initPlugins (server) {
     path: '/{p*}',
     handler: function (request, h) {
       return h.response(h.objectResponse.notFoundResponse()).code(404)
-    }
-  })
-
-  // Sequelize plugins
-  await server.register({
-    plugin: hapiSequelize,
-    options: {
-      options: {
-        host: process.env.MYSQL_HOST,
-        port: process.env.MYSQL_PORT,
-        username: process.env.MYSQL_USER,
-        password: process.env.MYSQL_PASSWORD,
-        database: process.env.MYSQL_NAME,
-        logging: function (str) {
-          // eslint-disable-next-line eqeqeq
-          const log = Logger.mysqlLogger(process.env.MYSQL_NAME)
-          log.info(str)
-        }
-      },
-      db: process.env.MYSQL_NAME
-    }
-  })
-
-  // Mongoose plugins
-  let mongoCredential = ''
-  if (process.env.MONGO_USER.length > 0) {
-    mongoCredential = `${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@`
-  }
-  await server.register({
-    plugin: hapiMongoose,
-    options: {
-      uri: `mongodb://${mongoCredential}${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`,
-      options: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      },
-      db: process.env.MONGO_NAME
     }
   })
 

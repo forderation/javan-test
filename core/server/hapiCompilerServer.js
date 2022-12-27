@@ -1,6 +1,6 @@
 'use strict'
 const Server = require('./hapiServer')
-const v1Handler = require('../../controllers/handlers/v1')
+const v1Handler = require('../../internal/v1')
 const StandardResponse = require('../../utils/response')
 require('dotenv').config()
 
@@ -21,17 +21,6 @@ module.exports = async () => {
       return h.response(StandardResponse.genericResponse({
         message: 'pong'
       }))
-    }
-  })
-
-  /**
-   * Example error internal
-   */
-  server.route({
-    method: 'GET',
-    path: `${appPrefixPath}/error`,
-    handler: function (req, h) {
-      return new Error('testing error')
     }
   })
 
