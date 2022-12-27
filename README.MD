@@ -1,62 +1,469 @@
-<img src="https://raw.githubusercontent.com/hapijs/assets/master/images/hapi.png" width="200px" />
+# Step Install
+- make sure have db postgres with configuration as referred in config/config.json
+- create .env file as referred .env.example 
+- run script below
 
-## HapiJs Backend Project Boilerplate Builder
-### Visit the [hapi.dev](https://hapi.dev) Developer Portal for tutorials, documentation, and support
-
-## Plugins included
-- [Mongoose as ORM MongoDB](https://mongoosejs.com/docs/api.html)
-- [Sequelize as ORM MySql](https://sequelize.org/master/)
-- [Joi as validation request](https://joi.dev/api/)
-- [Axios as service hitter](https://axios-http.com/docs/intro)
-- [Winston as logging and debug](https://github.com/winstonjs/winston)
-
-## Also installed useful code checker
-- Eslint with standard style
-- Husky pre-commit to check linter validation before committing code
-
-## Useful resources
-- [Documentation and API](https://hapi.dev/)
-- [Version status](https://hapi.dev/resources/status/#hapi) (builds, dependencies, node versions, licenses, eol)
-- [Changelog](https://hapi.dev/resources/changelog/)
-- [Project policies](https://hapi.dev/policies/)
-- [Free and commercial support options](https://hapi.dev/support/)
-
-## Project Structure
-This is recommended example of boilerplate project, you can change any name but be sure to check other file where have dependency to changed file
+## Script Install
 ```
-📦hapijs
-┣ 📂controllers [all logic control stored here]
-┃ ┣ 📂handlers [recommend using versioning of dir name so the api can have version]
-┃ ┃ ┗ 📂v1 [make sure you create index.js inside this dir to indexing all route inside this dir]
-┃ ┃ ┃ ┣ 📂handler [collection handler placed]
-┃ ┃ ┃ ┗ 📂repositories [long queries doing based on inject workers]
-┃ ┣ 📂services [if you want hit other service place hitter here]
-┃ ┃ ┗ 📂test [service collection example]
-┃ ┗ 📂workers [where query based orm stored here]
-┣ 📂core [hapi root server and plugins configuration place]
-┃ ┣ 📂utils [plugins for general utilization server]
-┃ ┣ 📂db [plugins for manage db (sql and mongo)]
-┃ ┗ 📂server [core root server and initiation plugins]
-┣ 📂logging_data [logging from winston. all logger will store sequelize, request, response]
-┣ 📂models [placed models for ORM]
-┃ ┣ 📂mongoose [mongo models place here, with create dir name based on database name]
-┃ ┃ ┗ 📂unicoop_test [recommend: placing by database name]
-┃ ┗ 📂sequelize [sql based models place here, with create dir name based on database name]
-┃ ┃ ┗ 📂warko_log [recommend: placing by database name]
-┣ 📂utils [where utilization file placed like base config of axios, logger, standard response, etc]
-┣ 📜.env.example [you can copy this file and rename to .env as environtment app]
-┣ 📜.eslintrc.js [style linter js. you can change based your most known style]
-┣ 📜test.js [testing app file]
-┗ 📜index.js [this file is iniation file executor where you can place all indexed handlers here]
+$ npm install --dev
+$ npx sequelize-cli db:migrate:all
+$ npm run serve
 ```
 
-## Todo
-- ~~Automate testing all demo service~~
-- ~~Add documentation per directory~~
-- ~~Add example mongoose~~
-- ~~Add example hit service~~
-- ~~Add example sequelize~~
-- ~~Add .env.example~~
-- ~~Add validator example~~
-- ~~Add worker example~~
-- Add redis memcache plugins
+# Project: Fams Javan
+# 📁 Collection: Family 
+
+
+## End-point: add family
+### Method: POST
+>```
+>http://127.0.0.1:8081/javan/v1/family
+>```
+### Body (**raw**)
+
+```json
+{
+    "nik": 123124532123
+}
+```
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully add family data",
+    "data": {
+        "id": 3,
+        "nik": "190238902139123",
+        "updated_at": "2022-12-26T19:18:55.666Z",
+        "created_at": "2022-12-26T19:18:55.666Z"
+    }
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: update family
+### Method: PUT
+>```
+>http://127.0.0.1:8081/javan/v1/family/1
+>```
+### Body (**raw**)
+
+```json
+{
+    "nik": "112376178263"
+}
+```
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully update family data",
+    "data": null
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: get families
+### Method: GET
+>```
+>http://127.0.0.1:8081/javan/v1/family
+>```
+### Body (**raw**)
+
+```json
+{
+    "nik": "190238902139123"
+}
+```
+
+### Query Params
+
+|Param|value|
+|---|---|
+|id|511|
+|nik|1234111|
+
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully get family data",
+    "data": [
+        {
+            "id": 5,
+            "nik": "190238902139123",
+            "created_at": "2022-12-26T19:30:49.669Z",
+            "updated_at": "2022-12-26T19:30:49.669Z"
+        },
+        {
+            "id": 6,
+            "nik": "1234",
+            "created_at": "2022-12-26T19:32:03.355Z",
+            "updated_at": "2022-12-26T19:32:03.355Z"
+        }
+    ]
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: remove family
+### Method: DELETE
+>```
+>http://127.0.0.1:8081/javan/v1/family/1
+>```
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully remove family data",
+    "data": 1
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+# 📁 Collection: Person 
+
+
+## End-point: add person
+### Method: POST
+>```
+>http://127.0.0.1:8081/javan/v1/person
+>```
+### Body (**raw**)
+
+```json
+{
+    "family_id": 2,
+    "name": "arip",
+    "gender": 0,
+    "nip": "53612367123"
+}
+```
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully add person data",
+    "data": {
+        "id": 3,
+        "name": "arip",
+        "gender": 0,
+        "nip": "53612367123",
+        "family_id": 2,
+        "updated_at": "2022-12-27T18:48:29.867Z",
+        "created_at": "2022-12-27T18:48:29.867Z",
+        "familyId": 2
+    }
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: put person
+### Method: PUT
+>```
+>http://127.0.0.1:8081/javan/v1/person/1
+>```
+### Body (**raw**)
+
+```json
+{
+    "family_id": 1,
+    "name": "ghufron",
+    "gender": 1,
+    "nip": "0061236123"
+}
+```
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully update person data",
+    "data": [
+        1
+    ]
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: get person
+### Method: GET
+>```
+>http://127.0.0.1:8081/javan/v1/person?id=3&family_id=2&name=ar&gender=1&include_product=true&nip=53612367125371
+>```
+### Body (**raw**)
+
+```json
+{
+    "nik": "190238902139123"
+}
+```
+
+### Query Params
+
+|Param|value|
+|---|---|
+|id|3|
+|family_id|2|
+|name|ar|
+|gender|1|
+|include_product|true|
+|nip|53612367125371|
+
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully get person data",
+    "data": [
+        {
+            "id": 2,
+            "nip": "61236123",
+            "name": "ghufron",
+            "gender": 1,
+            "family_id": 1,
+            "created_at": "2022-12-27T18:48:25.316Z",
+            "updated_at": "2022-12-27T18:57:36.375Z",
+            "asset": [
+                {
+                    "id": 1,
+                    "name": "samsung galaxy",
+                    "person_id": 2,
+                    "created_at": "2022-12-27T19:02:50.911Z",
+                    "updated_at": "2022-12-27T19:02:50.911Z",
+                    "price": 1499
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "nip": "53612367125371",
+            "name": "zaki",
+            "gender": 0,
+            "family_id": 2,
+            "created_at": "2022-12-27T18:48:19.624Z",
+            "updated_at": "2022-12-27T18:48:19.624Z",
+            "asset": [
+                {
+                    "id": 2,
+                    "name": "apple iphone",
+                    "person_id": 1,
+                    "created_at": "2022-12-27T19:03:26.259Z",
+                    "updated_at": "2022-12-27T19:03:26.259Z",
+                    "price": 0
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "nip": "53612367123",
+            "name": "arip",
+            "gender": 0,
+            "family_id": 2,
+            "created_at": "2022-12-27T18:48:29.867Z",
+            "updated_at": "2022-12-27T18:48:29.867Z",
+            "asset": [
+                {
+                    "id": 3,
+                    "name": "macbook",
+                    "person_id": 3,
+                    "created_at": "2022-12-27T19:03:36.022Z",
+                    "updated_at": "2022-12-27T19:03:36.022Z",
+                    "price": 1749
+                },
+                {
+                    "id": 6,
+                    "name": "samsung",
+                    "person_id": 3,
+                    "created_at": "2022-12-27T19:34:38.165Z",
+                    "updated_at": "2022-12-27T19:34:38.165Z",
+                    "price": 2748
+                }
+            ]
+        }
+    ]
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: remove person
+### Method: DELETE
+>```
+>http://127.0.0.1:8081/javan/v1/person/1
+>```
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully remove person data",
+    "data": 1
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+# 📁 Collection: Asset 
+
+
+## End-point: add asset
+### Method: POST
+>```
+>http://127.0.0.1:8081/javan/v1/asset
+>```
+### Body (**raw**)
+
+```json
+{
+    "person_id": 3,
+    "name": "samsung"
+}
+```
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully add asset data",
+    "data": {
+        "id": 1,
+        "name": "samsung galaxy",
+        "person_id": 2,
+        "updated_at": "2022-12-27T19:02:50.911Z",
+        "created_at": "2022-12-27T19:02:50.911Z",
+        "personId": 2
+    }
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: put asset
+### Method: PUT
+>```
+>http://127.0.0.1:8081/javan/v1/asset/1
+>```
+### Body (**raw**)
+
+```json
+{
+    "family_id": 1,
+    "name": "ghufron",
+    "gender": 1,
+    "nip": "0061236123"
+}
+```
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully update person data",
+    "data": [
+        1
+    ]
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: get asset
+### Method: GET
+>```
+>http://127.0.0.1:8081/javan/v1/asset?id=3&name=macbook&person_id=2
+>```
+### Body (**raw**)
+
+```json
+{
+    "nik": "190238902139123"
+}
+```
+
+### Query Params
+
+|Param|value|
+|---|---|
+|id|3|
+|name|macbook|
+|person_id|2|
+
+
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully get asset data",
+    "data": [
+        {
+            "id": 1,
+            "name": "samsung galaxy",
+            "person_id": 2,
+            "created_at": "2022-12-27T19:02:50.911Z",
+            "updated_at": "2022-12-27T19:02:50.911Z",
+            "personId": 2
+        },
+        {
+            "id": 3,
+            "name": "macbook",
+            "person_id": 3,
+            "created_at": "2022-12-27T19:03:36.022Z",
+            "updated_at": "2022-12-27T19:03:36.022Z",
+            "personId": 3
+        }
+    ]
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: remove asset
+### Method: DELETE
+>```
+>http://127.0.0.1:8081/javan/v1/asset/1
+>```
+### Response: 200
+```json
+{
+    "error": false,
+    "code": "00",
+    "message": "successfully remove asset data",
+    "data": 1
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+_________________________________________________
+Powered By: [postman-to-markdown](https://github.com/bautistaj/postman-to-markdown/)
