@@ -5,18 +5,24 @@ module.exports = function (sequelize, DataTypes) {
    * Set paranoid to true if using soft delete
    * @type {*|ModelCtor<Model>|void}
    */
-  const Schema = sequelize.define('testing_table',
+  const Schema = sequelize.define('person',
     {
       id: {
-        type: DataTypes.INTEGER(11),
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      key: {
-        type: DataTypes.STRING(255)
+      nip: {
+        type: DataTypes.STRING
       },
-      value: {
-        type: DataTypes.STRING(255)
+      name: {
+        type: DataTypes.STRING
+      },
+      gender: {
+        type: DataTypes.INTEGER
+      },
+      family_id: {
+        type: DataTypes.INTEGER
       },
       created_at: {
         type: DataTypes.DATE
@@ -26,7 +32,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     {
-      paranoid: false
+      underscored: true
     }
   )
 
@@ -35,7 +41,12 @@ module.exports = function (sequelize, DataTypes) {
    * @param models
    */
   Schema.associate = function (models) {
-    // models.Category.hasMany(models.Product)
+    models.personModel.belongsTo(models.familyModel, {
+      as: 'family'
+    })
+    models.personModel.hasMany(models.assetModel, {
+      as: 'asset'
+    })
   }
 
   return Schema
