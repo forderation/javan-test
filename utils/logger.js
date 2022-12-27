@@ -55,12 +55,11 @@ const createTransport = function (filename, enableConsole) {
  * We use this logger winston as core logging and debugging
  */
 const Logger = (function () {
-  let mySqlLoggerInstance
-  let mongoLoggerInstance
+  let sqlLoggerInstance
 
-  function createInstanceMysqlLogger (labelName) {
+  function createInstanceSqlLogger (labelName) {
     return createLogger({
-      transports: createTransport('logging_data/mysql.log', isCurrentEnvDevelopment),
+      transports: createTransport('logging_data/sql.log', isCurrentEnvDevelopment),
       format: combine(
         label({ label: labelName }),
         timestamp(),
@@ -80,29 +79,12 @@ const Logger = (function () {
     })
   }
 
-  function createInstanceMongoLogger (labelName) {
-    return createLogger({
-      transports: createTransport('logging_data/mongo.log', isCurrentEnvDevelopment),
-      format: combine(
-        label({ label: labelName }),
-        timestamp(),
-        fileFormat
-      )
-    })
-  }
-
   return {
-    mysqlLogger (label) {
-      if (!mySqlLoggerInstance) {
-        mySqlLoggerInstance = createInstanceMysqlLogger(label)
+    sqlLogger (label) {
+      if (!sqlLoggerInstance) {
+        sqlLoggerInstance = createInstanceSqlLogger(label)
       }
-      return mySqlLoggerInstance
-    },
-    mongoLogger (label) {
-      if (!mongoLoggerInstance) {
-        mongoLoggerInstance = createInstanceMongoLogger(label)
-      }
-      return mongoLoggerInstance
+      return sqlLoggerInstance
     },
     apiLogger (label) {
       return createInstanceApiLogger(label)
